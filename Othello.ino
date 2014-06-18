@@ -2,23 +2,26 @@
 #define PLAYER1 1
 #define PLAYER2 2
 
-
-int board[8][8] = {
-  {0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0},
-  {0,0,0,2,1,0,0,0},
-  {0,0,0,1,2,0,0,0},
-  {0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0}
-};
-
-int currentPlayer = PLAYER1;
+int board[8][8];
+int currentPlayer;
 
 void cls() {
   Serial.write(27);
   Serial.print("[2J");
+}
+
+void initGame() {
+  board = {
+    {0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,0},
+    {0,0,0,2,1,0,0,0},
+    {0,0,0,1,2,0,0,0},
+    {0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,0}
+  };
+  currentPlayer = PLAYER1;
 }
 
 void drawBoard() {
@@ -51,6 +54,11 @@ void drawBoard() {
     Serial.println("   +---+---+---+---+---+---+---+---+");
   }
   Serial.println("     A   B   C   D   E   F   G   H");
+  Serial.print("Player:");
+  Serial.print(o);
+  Serial.print(" Computer:");
+  Serial.println(x);
+  Serial.println();
   //printf("O: %d, X: %d\n",o,x);
 }
 
@@ -581,7 +589,6 @@ char getChar() {
       c = Serial.read();
     }
   }
-  Serial.write(c);
   return c;
 }
 
@@ -591,7 +598,9 @@ void doMove(int p) {
     Serial.print("Please enter your move: ");
     char row,col;
     row = getChar();
+    Serial.write(row);
     col = getChar();
+    Serial.write(col);
     Serial.println();
     int x,y;
     switch(row) {
@@ -631,8 +640,9 @@ void doMove(int p) {
 
 void setup() {
   Serial.begin(9600);
-  cls();
+  initGame();
   while (getChar() != (char) 27) {
+    cls();
     Serial.println("Press esc to continue!");
   }
   drawBoard();
@@ -667,6 +677,12 @@ void loop() {
   } else {
     Serial.println("it's a tie!");
   }
+  
+  while (getChar() != (char) 27) {
+    Serial.println("Press esc to start new game!");
+  }
+  initGame();
+  drawBoard();
 }
 
 
