@@ -666,7 +666,10 @@ void loop() {
       }
       currentPlayer = PLAYER1;
     }
-    gameCanContinue = openBlocks();
+    
+    if (gameCanContinue) {
+      gameCanContinue = openBlocks();
+    }
     drawBoard();
   }
 
