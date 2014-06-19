@@ -8,19 +8,22 @@ int currentPlayer;
 void cls() {
   Serial.write(27);
   Serial.print("[2J");
+  Serial.write(27);
+  Serial.print("[H");
 }
 
 void initGame() {
-  board = {
-    {0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0},
-    {0,0,0,2,1,0,0,0},
-    {0,0,0,1,2,0,0,0},
-    {0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0}
-  };
+  int i,n;
+  for (i=0;i<8;i++) {
+    for (n=0;n<8;n++){
+      board[i][n] = 0;
+    }
+  }
+  board[3][3] = 2;
+  board[3][4] = 1;
+  board[4][3] = 1;
+  board[4][4] = 2;
+  
   currentPlayer = PLAYER1;
 }
 
@@ -520,7 +523,7 @@ int isValidMove(int p, int y, int x) {
 
 void ai(int p) {
   Serial.println("My turn ...");
-  delay(3000);
+  delay(1000);
   int i,n,y,x;
   int maxFlips = 0;
   for (i=0;i<8;i++) {
