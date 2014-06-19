@@ -523,7 +523,7 @@ int isValidMove(int p, int y, int x) {
 
 void ai(int p) {
   Serial.println("My turn ...");
-  delay(1000);
+  delay(2000);
   int i,n,y,x;
   int maxFlips = 0;
   for (i=0;i<8;i++) {
