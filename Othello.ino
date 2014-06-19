@@ -641,10 +641,10 @@ void doMove(int p) {
 void setup() {
   Serial.begin(9600);
   initGame();
-  while (getChar() != (char) 27) {
+  do {
     cls();
     Serial.println("Press esc to continue!");
-  }
+  } while (getChar() != (char) 27);
   drawBoard();
 }
 
@@ -678,9 +678,9 @@ void loop() {
     Serial.println("it's a tie!");
   }
   
-  while (getChar() != (char) 27) {
+  do {
     Serial.println("Press esc to start new game!");
-  }
+  } while (getChar() != (char) 27);
   initGame();
   drawBoard();
 }
